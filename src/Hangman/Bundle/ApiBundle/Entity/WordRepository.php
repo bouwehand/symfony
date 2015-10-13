@@ -35,6 +35,9 @@ class WordRepository extends EntityRepository
         return $highestId;
     }
 
+    /**
+     * @return string
+     */
     public function getRandomWord()
     {
         $highestId = $this->getHighestId();

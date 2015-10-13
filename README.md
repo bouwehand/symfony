@@ -89,7 +89,13 @@ accessable trough /hello/world, so we can start development
 Development
 ===========
 
+Aparently there is a Symfony cookbook:
 
+http://symfony.com/doc/current/book/doctrine.html
+
+So we have documentation.
+
+Lets start by creating the models, or 'entities' as symfony calls them
 
 
 
