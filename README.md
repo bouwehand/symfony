@@ -29,6 +29,17 @@ Every response should contain the following fields:
 *status*: current status of the game (busy|fail|success)
 
 
+Installation
+------------
+
+First i run composer, this gave me an error on the doctrine migrations bundle so i changed the symphony version to 2.4 and then we were ok.
+
+Then i run migrations with:
+
+`php app/console doctrine:migrations:migrate`
+
+this gave me all the words in my database.
+
 
 
 
