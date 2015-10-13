@@ -30,9 +30,10 @@ Every response should contain the following fields:
 
 
 Installation
-------------
+============
 
-First i run composer, this gave me an error on the doctrine migrations bundle so i changed the symphony version to 2.4 and then we were ok.
+First i run composer, this gave me an error on the doctrine migrations bundle
+so i downgraded the symphony version to 2.4 and then we were oke.
 
 Then i run migrations with:
 
@@ -40,7 +41,53 @@ Then i run migrations with:
 
 this gave me all the words in my database.
 
+Added to my apache conf:
 
+`
+  1 <VirtualHost *:80>
+  2
+  3   ServerName  symfony.dev
+  4   ServerAlias symfony.local
+  5
+  6   DocumentRoot /home/bas/vhosts/symfony/web
+  7   <Directory /home/bas/vhosts/symfony/web>
+  8    Order allow,deny
+  9    Allow from all
+ 10    require all granted
+ 11    allowOverride all
+ 12   </Directory>
+ 13 </VirtualHost>
+`
+
+and to my hosts file:
+
+`127.0.0.1 symfony.dev`
+
+then
+`sudo a2ensite symfony.conf && sudo service apache2 reload`
+
+And there is our symfony ghost telling us no GET is configured, which is correct
+
+to make development a little easier I installed postman for chrome:
+
+`https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm`
+
+this is a plugin that will let you do all REST request trough your browser (real easy)
+
+Further we add a index.php to the /web dir and include the app.php :
+`
+<?php
+/**
+ * @author b.j.ouwehand <b.j.ouwehand@gmail.com>
+ */
+require_once('app.php');
+`
+
+then we see we already have a controller configured in /home/bas/vhosts/symfony/src/Hangman/Bundle/ApiBundle/Resources/config/routing.yml
+accessable trough /hello/world, so we can start development
+
+Development
+===========
 
 
 
