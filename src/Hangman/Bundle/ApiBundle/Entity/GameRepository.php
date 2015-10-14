@@ -21,5 +21,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
-
+    /**
+     * Create a new game
+     */
+    public function create()
+    {
+        $game = new Game();
+        $randomWord =  $this
+            ->getEntityManager()
+            ->getRepository('HangmanApiBundle:Word')
+            ->getRandomWord();
+        $game->setWord($randomWord);
+        $game->setTriesLeft(11);
+        $game->setStatus('busy');
+        return $game;
+    }
 }
