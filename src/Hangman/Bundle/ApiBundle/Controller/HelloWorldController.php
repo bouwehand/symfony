@@ -11,7 +11,10 @@ class HelloWorldController extends Controller
 {
     public function helloWorldAction()
     {
-        $word = $this->getDoctrine()->getRepository('HangmanApiBundle:Word');
+        $word = $this
+            ->getDoctrine()
+            ->getRepository('HangmanApiBundle:Word');
+
         //die(var_dump($word));
         die(var_dump($word->getRandomWord()));
         return new Response(
