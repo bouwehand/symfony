@@ -11,10 +11,13 @@ class HelloWorldController extends Controller
 {
     public function helloWorldAction()
     {
-        $game = $this->getDoctrine()->getRepository('HangmanApiBundle:Game')->create();
+        $game = $this->getDoctrine()->getRepository('HangmanApiBundle:Game')->guess(3, 'a');
+        //$game = $this->getDoctrine()->getRepository('HangmanApiBundle:Game')->create();
         die(var_dump($game));
         return new Response(
             'Hello world!'
         );
     }
+
+
 }
