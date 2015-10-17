@@ -46,7 +46,7 @@ class GameRepository extends EntityRepository
     /**
      * @param $gameId
      * @param $character
-     * @return bool
+     * @return bool| \Game
      * @throws \Exception
      */
     public function guess($gameId, $character)
@@ -64,7 +64,7 @@ class GameRepository extends EntityRepository
             return false;
         }
 
-        $guessed = json_decode($game->getCharactersGuessed());
+        $guessed = json_decode($game->getCharactersGuessed(), true);
         if (in_array($character, $guessed)) {
             // you already have that one
             return false;
@@ -80,16 +80,17 @@ class GameRepository extends EntityRepository
                 $success = true;
             }
         }
-        $guessed = json_encode($guessed);
-        $game->setCharactersGuessed($guessed);
+
         if (count($guessed) == strlen($game->getWord()) ) {
             $game->setStatus('success');
         }
+        $guessed = json_encode($guessed);
+        $game->setCharactersGuessed($guessed);
 
         if($success) {
             $em->persist($game);
             $em->flush();
-            return true;
+            return $game;
         }
 
         // not so good

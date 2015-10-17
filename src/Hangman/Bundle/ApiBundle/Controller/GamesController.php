@@ -15,16 +15,19 @@ class GamesController extends Controller
     public function gamesAction($id, $character)
     {
         $request = Request::createFromGlobals();
+        $repo = $this->getDoctrine()->getRepository('HangmanApiBundle:Game');
         switch ($request->getMethod()) {
             case "POST" :
+                $game = $repo->guess($id, $character);
                 break;
             case "PUT" :
+                $game = $repo->create();
                 break;
             case "GET" :
                 break;
         }
         return new Response(
-            'Hello world!' . $id . $character
+            var_dump($game)
         );
     }
 }
