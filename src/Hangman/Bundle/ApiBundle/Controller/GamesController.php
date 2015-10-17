@@ -22,7 +22,11 @@ class GamesController extends Controller
             $game = $repo->guess($id, $character);
         }
         return new Response(
-            var_dump($game)
+            json_encode(array (
+              "status" => $game->getStatus(),
+              "tries_left" => $game->getTriesLeft(),
+              "Characters guessed" => json_decode($game->getCharactersGuessed())
+            ))
         );
     }
 }

@@ -60,7 +60,7 @@ class GameRepository extends EntityRepository
     /**
      * @param $gameId
      * @param $character
-     * @return bool| \Game
+     * @return \Game
      * @throws \Exception
      */
     public function guess($gameId, $character)
@@ -74,14 +74,14 @@ class GameRepository extends EntityRepository
             throw new \Exception("game $gameId not found!");
         }
         // can only play on a busy game
-        if (! $game->getStatus() == 'busy') {
-            return false;
+        if ($game->getStatus() != 'busy') {
+            return $game;
         }
 
         $guessed = json_decode($game->getCharactersGuessed(), true);
         if (in_array($character, $guessed)) {
             // you already have that one
-            return false;
+            return $game;
         }
         $em = $this->getEntityManager();
 
@@ -117,6 +117,6 @@ class GameRepository extends EntityRepository
         }
         $em->persist($game);
         $em->flush();
-        return false;
+        return $game;
     }
 }
