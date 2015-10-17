@@ -44,6 +44,20 @@ class GameRepository extends EntityRepository
     }
 
     /**
+     * @return int
+     */
+    public function getHighestId()
+    {
+        $em = $this->getEntityManager();
+        $highestId = $em->createQueryBuilder()
+            ->select('MAX(e.id)')
+            ->from('HangmanApiBundle:game', 'e')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $highestId;
+    }
+
+    /**
      * @param $gameId
      * @param $character
      * @return bool| \Game
@@ -73,7 +87,7 @@ class GameRepository extends EntityRepository
 
         // very good
         $word = str_split($game->getWord());
-        // do all same characters ( play the game like how i played when i was little )
+        // do all same characters ( play the game like how i played it when i was little )
         foreach($word as $k => $v) {
             if ($character == $v) {
                 $guessed[$k] = $v;
@@ -95,11 +109,11 @@ class GameRepository extends EntityRepository
 
         // not so good
         $tries = $game->getTriesLeft();
-
-        $tries -= 1;
-        $game->setTriesLeft($tries);
         if (empty($tries)) {
             $game->setStatus('fail');
+        } else {
+            $tries -= 1;
+            $game->setTriesLeft($tries);
         }
         $em->persist($game);
         $em->flush();

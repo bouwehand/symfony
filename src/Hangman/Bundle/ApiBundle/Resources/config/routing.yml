@@ -3,9 +3,8 @@ hangman_api_hello_world:
     defaults: { _controller: HangmanApiBundle:HelloWorld:helloWorld }
     methods:  [GET]
 games:
-    path:     /games/{id}/{character}
-    defaults: { _controller: HangmanApiBundle:Games:games, id:0, character:0 }
-    methods:  [GET|POST|PUT]
+    path:     /games/{character}
+    defaults: { _controller: HangmanApiBundle:Games:games, character:0 }
+    methods:  [GET|POST]
     requirements:
-      id:  "\d+"
       character: "[a-z]"

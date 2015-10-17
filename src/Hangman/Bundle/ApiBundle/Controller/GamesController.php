@@ -10,21 +10,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class GamesController extends Controller
 {
     /**
-     * @Route("/games/{id}/{character}", defaults={"id": "0", "character": "0"})
+     * @Route("/games/{character}", defaults={"character": "0"})
      */
-    public function gamesAction($id, $character)
+    public function gamesAction($character)
     {
-        $request = Request::createFromGlobals();
         $repo = $this->getDoctrine()->getRepository('HangmanApiBundle:Game');
-        switch ($request->getMethod()) {
-            case "POST" :
-                $game = $repo->guess($id, $character);
-                break;
-            case "PUT" :
-                $game = $repo->create();
-                break;
-            case "GET" :
-                break;
+        if (empty($id) && empty($character)) {
+            $game = $repo->create();
+        } else {
+            $id = $repo->getHighestId();
+            $game = $repo->guess($id, $character);
         }
         return new Response(
             var_dump($game)
