@@ -32,15 +32,6 @@ Every response should contain the following fields:
 Installation
 ============
 
-First i run composer, this gave me an error on the doctrine migrations bundle
-so i downgraded the symphony version to 2.4 and then we were oke.
-
-Then i run migrations with:
-
-`php app/console doctrine:migrations:migrate`
-
-this gave me all the words in my database.
-
 Added to my apache conf:
 
 `
@@ -63,16 +54,10 @@ and to my hosts file:
 
 `127.0.0.1 symfony.dev`
 
-then
-`sudo a2ensite symfony.conf && sudo service apache2 reload`
-
-And there is our symfony ghost telling us no GET is configured, which is correct
 
 to make development a little easier I installed postman for chrome:
 
 `https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm`
-
-this is a plugin that will let you do all REST request trough your browser (real easy)
 
 Further we add a index.php to the /web dir and include the app.php :
 `
@@ -83,19 +68,11 @@ Further we add a index.php to the /web dir and include the app.php :
 require_once('app.php');
 `
 
-then we see we already have a controller configured in /home/bas/vhosts/symfony/src/Hangman/Bundle/ApiBundle/Resources/config/routing.yml
-accessable trough /hello/world, so we can start development
-
-Development
-===========
-
-Aparently there is a Symfony cookbook:
+Documentation
+==============
 
 http://symfony.com/doc/current/book/doctrine.html
 
-So we have documentation.
-
-Lets start by creating the models, or 'entities' as symfony calls them
 
 
 
